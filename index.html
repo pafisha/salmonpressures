@@ -445,7 +445,8 @@ const DATA = [
   "attribution": "Adam Nikolai, Nikolai",
   "photo": "reductionsize.png",
   "credit": "Oke et al. 2020",
-  "creditLabel": "Source"
+  "creditLabel": "Source",
+  "creditUrl": "https://www.nature.com/articles/s41467-020-17726-z"
 },
   {
     "id": "reduction-in-abundance",
@@ -588,9 +589,21 @@ function renderSection(section, title) {
     html += '<figure>';
     html += '<img src="' + escapeHtml(section.photo) + '" alt="' + escapeHtml(title) + '">';
     if (section.credit) {
-      const creditLabel = section.creditLabel || 'Photo';
-      html += '<figcaption>' + escapeHtml(creditLabel) + ': ' + escapeHtml(section.credit) + '</figcaption>';
-    }
+  const creditLabel = section.creditLabel || 'Photo';
+
+  if (section.creditUrl) {
+    html += '<figcaption>' +
+      escapeHtml(creditLabel) + ': ' +
+      '<a href="' + escapeHtml(section.creditUrl) + '" target="_blank" rel="noopener noreferrer">' +
+      escapeHtml(section.credit) +
+      '</a></figcaption>';
+  } else {
+    html += '<figcaption>' +
+      escapeHtml(creditLabel) + ': ' +
+      escapeHtml(section.credit) +
+      '</figcaption>';
+  }
+}
     html += '</figure>';
   }
 
