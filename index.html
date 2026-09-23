@@ -481,8 +481,13 @@ function openModal(item, triggerEl) {
     if (item.attribution) html += '<cite>&mdash; ' + escapeHtml(item.attribution) + '</cite>';
     html += '</blockquote>';
   }
-  if (item.photo && IMAGES[item.photo]) {
-    html += '<figure><img src="' + IMAGES[item.photo] + '" alt="' + escapeHtml(item.title) + ' photo"></figure>';
+  if (item.photo) {
+    html += '<figure>';
+    html += '<img src="' + escapeHtml(item.photo) + '" alt="' + escapeHtml(item.title) + ' photo">';
+    if (item.credit) {
+        html += '<figcaption>Photo: ' + escapeHtml(item.credit) + '</figcaption>';
+    }
+    html += '</figure>';
   }
   modalBody.innerHTML = html;
   backdrop.classList.add('open');
