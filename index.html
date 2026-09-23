@@ -342,7 +342,17 @@
   }
 }
 
-The key change is actually removing object-fit: contain and using:
+
+/* Space between quote and following image */
+.modal blockquote + figure {
+  margin-top: 28px;
+}
+
+/* Space between image and following body section */
+.modal figure + .body-text {
+  margin-top: 30px;
+}
+
 </style>
 </head>
 <body>
@@ -407,10 +417,23 @@ const DATA = [
     "title": "Climate",
     "left": 70.0,
     "top": 15.36,
-    "body": "Add your write-up on climate here.",
-    "quote": null,
-    "attribution": null,
-    "photo": null
+    "sections": [
+      {
+        "body": "In 2019, water temperatures in the river and ocean were very high, and thermal tolerances of salmon spawners were exceeded multiple times throughout the year.",
+        "quote": "They know if the water is too low and too warm, they'll all die before they even reach their spawning grounds. Especially Chinook: If they know the water is too warm or too low, they won't want to come up.",
+        "attribution": "Aniak Elder"
+      },
+      {
+        "photo": "climate.jpg",
+        "credit": "NOAA",
+        "creditLabel": "Source"
+      },
+      {
+        "body": "Climate change is also impacting marine environments. Ecosystem variability and limited forage during warm years have been linked with Chinook and chum declines.",
+        "quote": "I think the temperature is changing of the ocean. Look at how many years they had no king crab fishing. And I think the krill are dying off.",
+        "attribution": "Dan Esai, Nikolai"
+      }
+    ]
   },
   {
     "id": "reduction-in-size",
@@ -543,28 +566,53 @@ function build() {
   });
 }
 
-function openModal(item, triggerEl) {
-  lastFocused = triggerEl;
+function renderSection(section, title) {
   let html = '';
-  if (item.body && item.body.startsWith('Add your write-up')) {
-    html += '<span class="placeholder-tag">Placeholder content — edit in the data array</span>';
+
+  if (section.body) {
+    html += '<p class="body-text">' + escapeHtml(section.body) + '</p>';
   }
-  html += '<h2 id="modal-title">' + escapeHtml(item.title) + '</h2>';
-  if (item.body) html += '<p class="body-text">' + escapeHtml(item.body) + '</p>';
-  if (item.quote) {
+
+  if (section.quote) {
     html += '<blockquote><span class="mark">&#8220;</span>';
-    html += '<p class="quote-text">' + escapeHtml(item.quote) + '</p>';
-    if (item.attribution) html += '<cite>&mdash; ' + escapeHtml(item.attribution) + '</cite>';
+    html += '<p class="quote-text">' + escapeHtml(section.quote) + '</p>';
+    if (section.attribution) {
+      html += '<cite>&mdash; ' + escapeHtml(section.attribution) + '</cite>';
+    }
     html += '</blockquote>';
   }
-  if (item.photo) {
+
+  if (section.photo) {
     html += '<figure>';
-    html += '<img src="' + escapeHtml(item.photo) + '" alt="' + escapeHtml(item.title) + ' photo">';
-    if (item.credit) {
-        html += '<figcaption>Photo: ' + escapeHtml(item.credit) + '</figcaption>';
+    html += '<img src="' + escapeHtml(section.photo) + '" alt="' + escapeHtml(title) + '">';
+    if (section.credit) {
+      const creditLabel = section.creditLabel || 'Photo';
+      html += '<figcaption>' + escapeHtml(creditLabel) + ': ' + escapeHtml(section.credit) + '</figcaption>';
     }
     html += '</figure>';
   }
+
+  return html;
+}
+
+function openModal(item, triggerEl) {
+  lastFocused = triggerEl;
+  let html = '';
+
+  if (item.body && item.body.startsWith('Add your write-up')) {
+    html += '<span class="placeholder-tag">Placeholder content — edit in the data array</span>';
+  }
+
+  html += '<h2 id="modal-title">' + escapeHtml(item.title) + '</h2>';
+
+  if (item.sections) {
+    item.sections.forEach(function(section) {
+      html += renderSection(section, item.title);
+    });
+  } else {
+    html += renderSection(item, item.title);
+  }
+
   modalBody.innerHTML = html;
   backdrop.classList.add('open');
   modal.focus();
