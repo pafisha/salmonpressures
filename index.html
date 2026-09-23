@@ -267,6 +267,90 @@
     .modal { padding: 30px 22px 26px; border-radius: 10px; }
     .modal blockquote { padding: 24px 20px 20px; }
   }
+
+  /* ===== Compact pressure-point modal ===== */
+
+/* Slightly tighter content area */
+.modal-content {
+  padding: 42px 48px 36px;
+}
+
+/* Title */
+.modal-content h2 {
+  margin: 0 0 22px;
+  line-height: 1.1;
+}
+
+/* Main explanatory text */
+.modal-content > p {
+  margin: 0 0 26px;
+  line-height: 1.55;
+}
+
+/* Knowledge Holder quote box */
+.modal blockquote {
+  margin: 0 0 28px;
+  padding: 24px 34px 22px;
+}
+
+/* Quote text */
+.modal blockquote p {
+  margin: 0;
+  line-height: 1.45;
+}
+
+/* Attribution */
+.modal blockquote cite {
+  display: block;
+  margin-top: 14px;
+}
+
+/* Photo container */
+.modal figure {
+  margin: 0;
+}
+
+/* Consistent photo presentation */
+.modal figure img {
+  display: block;
+  width: 100%;
+  height: 430px;
+  object-fit: cover;
+  object-position: center 38%;
+  border-radius: 10px;
+}
+
+/* Photo credit */
+.modal figcaption {
+  margin-top: 7px;
+  font-size: 0.82rem;
+  line-height: 1.3;
+}
+
+/* Smaller screens */
+@media (max-width: 700px) {
+
+  .modal-content {
+    padding: 30px 22px 26px;
+  }
+
+  .modal-content h2 {
+    margin-bottom: 18px;
+  }
+
+  .modal-content > p {
+    margin-bottom: 22px;
+  }
+
+  .modal blockquote {
+    padding: 20px 20px 18px;
+    margin-bottom: 22px;
+  }
+
+  .modal figure img {
+    height: 300px;
+  }
+}
 </style>
 </head>
 <body>
