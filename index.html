@@ -28,8 +28,25 @@
   * { box-sizing: border-box; }
   html, body {
     margin: 0; padding: 0;
-    background: #DDE8EB;
-    font-family: 'Spectral', Georgia, 'Times New Roman', serif;
+background-color: #DDE8EB;
+background-image:
+  radial-gradient(
+    ellipse 70% 18% at 25% 110%,
+    transparent 67%,
+    rgba(255,255,255,0.30) 68%,
+    rgba(255,255,255,0.30) 70%,
+    transparent 71%
+  ),
+  radial-gradient(
+    ellipse 70% 18% at 75% -10%,
+    transparent 67%,
+    rgba(111,145,157,0.12) 68%,
+    rgba(111,145,157,0.12) 70%,
+    transparent 71%
+  );
+
+background-size: 600px 220px;
+background-repeat: repeat;    font-family: 'Spectral', Georgia, 'Times New Roman', serif;
     color: var(--ink);
   }
 
